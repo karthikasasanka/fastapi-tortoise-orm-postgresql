@@ -21,5 +21,5 @@ async def filter_by(text: str) -> List[Note]:
 async def update(note_to_update: Note, note_data: dict):
     for field_name in note_data:
         setattr(note_to_update, field_name, note_data.get(field_name))
-    await note_to_update.save(update_fields= [*note_data.keys(),"updated_at"])
+    await note_to_update.save()
     return note_to_update
