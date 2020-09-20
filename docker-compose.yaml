@@ -1,7 +1,7 @@
 version: "2"
 
 services: 
-    postgresql:
+    kpostgres:
         hostname: kpostgres
         image: bitnami/postgresql:latest
         environment:
@@ -10,3 +10,15 @@ services:
         - POSTGRESQL_DATABASE=notesdb
         ports: 
         - "5432:5432"
+    note-service:
+        hostname: note-service
+        image: karthikasasanka/note-service:0.0.1
+        environment:
+        - POSTGRESQL_HOSTNAME=kpostgres
+        - POSTGRESQL_USERNAME=guest
+        - POSTGRESQL_PASSWORD=guest
+        - POSTGRESQL_DATABASE=notesdb
+        ports: 
+        - "5000:5000"
+        depends_on:
+            - kpostgres

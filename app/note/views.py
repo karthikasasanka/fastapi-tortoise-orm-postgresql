@@ -3,8 +3,8 @@ from typing import List
 
 from fastapi import APIRouter
 
-from app.crud import add, filter_by, get, get_all, update
-from app.schemas import Note
+from app.note.crud import add, filter_by, get, get_all, update
+from app.note.schemas import Note
 
 note_views = APIRouter()
 

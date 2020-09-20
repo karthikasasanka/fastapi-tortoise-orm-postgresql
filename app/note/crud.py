@@ -1,6 +1,6 @@
 import re
 from typing import List
-from app.models import Note
+from app.note.models import Note
 
 async def add(data: str, title: str=None) -> Note:
     new_note = await Note.create(data=data, title=title)

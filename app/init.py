@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from tortoise.contrib.fastapi import register_tortoise
-from config import settings
+from app.config import settings
 
 def create_app() -> FastAPI:
 
@@ -8,8 +8,13 @@ def create_app() -> FastAPI:
 
     register_tortoise(
         app,
-        db_url=settings.POSTGRES_URI,
-        modules={"models": ["app.models"]},
+        db_url=get_db_uri(
+            user=settings.POSTGRESQL_USERNAME,
+            passwd=settings.POSTGRESQL_PASSWORD,
+            host=settings.POSTGRESQL_HOSTNAME,
+            db=settings.POSTGRESQL_DATABASE
+        ),
+        modules={"models": ["app.note.models"]},
         generate_schemas=True,
         add_exception_handlers=True,
     )
@@ -17,7 +22,9 @@ def create_app() -> FastAPI:
 
     return app
 
-
+def get_db_uri(user, passwd, host, db):
+    return f"postgres://{user}:{passwd}@{host}:5432/{db}"
+    
 def register_views(app: FastAPI):
-    from app.views import note_views
+    from app.note.views import note_views
     app.include_router(note_views, prefix="/notes", tags=["Notes"])
