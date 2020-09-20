@@ -5,4 +5,4 @@ A simple Notes app using fastapi, postgresql, tortoise-orm and poetry
 docker-compose up -d --build
 ```
 
-Notes service can be accessed at `http://localhost:5000/`
+Notes app can be accessed at `http://localhost:5000/`
