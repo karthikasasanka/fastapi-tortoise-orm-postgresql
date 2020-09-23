@@ -8,17 +8,15 @@ ENV PYTHONFAULTHANDLER=1 \
   PIP_DEFAULT_TIMEOUT=100 \
   POETRY_VERSION=1.0
 
-# System deps:
 RUN pip install "poetry==$POETRY_VERSION"
 
-# Copy only requirements to cache them in docker layer
 WORKDIR /usr/src
 
 COPY poetry.lock pyproject.toml /usr/src/
 
 # Project initialization:
 RUN poetry config virtualenvs.create false \
-    && poetry install --no-dev --no-interaction --no-ansi
+    && poetry install --no-dev --no-interaction
 
 COPY ./app /usr/src/app
 
